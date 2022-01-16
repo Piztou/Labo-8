@@ -15,6 +15,7 @@ Compilateur : Mingw-w64 g++ 11.2.0
 
 
 class Robot {
+public:
    /**
     * Initialisation d'un Robot
     * @param x Position horizontale
@@ -31,8 +32,8 @@ class Robot {
     */
    void deplacement(Direction direction, unsigned distance = 1);
    unsigned getId() const;
-   unsigned getX();
-   unsigned getY();
+   unsigned getX() const;
+   unsigned getY() const;
    static unsigned getTotal();
 private:
    unsigned x,y;

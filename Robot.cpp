@@ -12,6 +12,9 @@ Compilateur : Mingw-w64 g++ 11.2.0
 
 #include "Robot.h"
 
+unsigned Robot::next  = 0;
+unsigned Robot::total = 0;
+
 Robot::Robot(unsigned int x, unsigned int y) : id(next) {
    ++next;
    ++total;
@@ -45,11 +48,11 @@ unsigned Robot::getId() const {
    return id;
 }
 
-unsigned Robot::getX() {
+unsigned Robot::getX() const {
    return x;
 }
 
-unsigned Robot::getY() {
+unsigned Robot::getY() const {
    return y;
 }
 
