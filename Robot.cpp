@@ -39,7 +39,7 @@ void Robot::deplacement(Direction direction, unsigned distance) {
          x += distance;
          break;
       case Direction::LEFT:
-         x += distance;
+         x -= distance;
          break;
    }
 }
