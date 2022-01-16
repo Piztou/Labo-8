@@ -3,4 +3,5 @@ project(8)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(8 main.cpp Robot.cpp Robot.h Plateau.cpp Plateau.h annexes.cpp annexes.h annexesImpl.h)
+add_executable(8 main.cpp Robot.cpp Robot.h Plateau.cpp Plateau.h annexes.cpp
+        annexes.h annexesImpl.h Robot_est_sur_ligne.h)

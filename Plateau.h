@@ -20,7 +20,7 @@ Compilateur : Mingw-w64 g++ 11.2.0
 class Plateau {
 public:
    // Quantité maximum de robots pouvant être gérés par le plateau
-   static const unsigned NB_ROBOT_MAX = 10;
+   static const unsigned NB_ROBOT_MAX;
    /**
     * Crée un plateau avec les dimensions données
     * @param largeur Largeur du plateau
@@ -30,7 +30,7 @@ public:
 
    /**
     * Ajoute une certaines quantité de Robots sur le terrain à des emplacements
-    * aléatoire \n
+    * aléatoire
     * @remark Quitte le programme (assert) si NB_ROBOT_MAX n'est pas respecté
     * @param quantite La quantité de robot à ajouter
     */
@@ -41,6 +41,13 @@ public:
    bool partieFinie();
 
 private:
+   // Le caractère utilisé pour le bord haut et bas du tableau
+   static const char CAR_LIGNE;
+   // Le caractère utilisé pour le bord gauche et droit du tableau
+   static const char CAR_COL;
+   // Le caractère utilisé quand il n'y a pas de robots
+   static const char CAR_VIDE;
+
    unsigned largeur, hauteur;
    std::vector<Robot> robots;
 
@@ -52,6 +59,20 @@ private:
     * @return true si un robot à été trouvé, autrement false
     */
    bool chercheRobot(unsigned x, unsigned y);
+
+   /**
+    * cout un trait composé de taille fois le char CAR_LIGNE, et reviens à la ligne
+    * @param taille    Le nombre de caractère
+    * @param caractere Le caractère à répéter pour la ligne
+    */
+   static void afficheTrait(unsigned taille, char caractere = CAR_LIGNE);
+
+   /**
+    * Cherche tous les robots sur une ligne, retourne un tableau de leurs indexes
+    * @param ligne La ligne où chercher les robots
+    * @return Un liste d'indexes de robots
+    */
+   std::vector<size_t> trouveRobotsSurLigne (unsigned ligne);
 };
 
 
