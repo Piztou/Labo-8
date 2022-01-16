@@ -11,3 +11,48 @@ Compilateur : Mingw-w64 g++ 11.2.0
 */
 
 #include "Robot.h"
+
+Robot::Robot(unsigned int x, unsigned int y) : id(next) {
+   ++next;
+   ++total;
+   this->x = x;
+   this->y = y;
+}
+
+Robot::~Robot() {
+   --total;
+}
+
+void Robot::deplacement(Direction direction, unsigned distance) {
+
+   switch (direction) {
+      case Direction::UP:
+         y -= distance;
+         break;
+      case Direction::DOWN:
+         y += distance;
+         break;
+      case Direction::RIGHT:
+         x += distance;
+         break;
+      case Direction::LEFT:
+         x += distance;
+         break;
+   }
+}
+
+unsigned Robot::getId() const {
+   return id;
+}
+
+unsigned Robot::getX() {
+   return x;
+}
+
+unsigned Robot::getY() {
+   return y;
+}
+
+unsigned Robot::getTotal() {
+   return total;
+}
