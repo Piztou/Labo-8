@@ -19,8 +19,21 @@ Compilateur : Mingw-w64 g++ 11.2.0
 
 class Plateau {
 public:
+   // Quantité maximum de robots pouvant être gérés par le plateau
+   static const unsigned NB_ROBOT_MAX = 10;
+   /**
+    * Crée un plateau avec les dimensions données
+    * @param largeur Largeur du plateau
+    * @param hauteur Hauteur du plateau
+    */
    Plateau(unsigned largeur, unsigned hauteur);
 
+   /**
+    * Ajoute une certaines quantité de Robots sur le terrain à des emplacements
+    * aléatoire \n
+    * @remark Quitte le programme (assert) si NB_ROBOT_MAX n'est pas respecté
+    * @param quantite La quantité de robot à ajouter
+    */
    void ajouterRobots(unsigned quantite);
    void afficher();
    void bougerRobots();
@@ -30,6 +43,15 @@ public:
 private:
    unsigned largeur, hauteur;
    std::vector<Robot> robots;
+
+   /**
+    * Cherche un robot à une position, retourne true si au moins un est présent
+    * autrement false
+    * @param x Position horizontale à vérifier
+    * @param y Position verticale à vérifier
+    * @return true si un robot à été trouvé, autrement false
+    */
+   bool chercheRobot(unsigned x, unsigned y);
 };
 
 
