@@ -20,16 +20,17 @@ using namespace std;
 
 const unsigned Plateau::NB_ROBOT_MAX = 10;
 
-const char Plateau::CAR_LIGNE = '-';
-const char Plateau::CAR_COL   = '|';
-const char Plateau::CAR_VIDE  = ' ';
+const char     Plateau::CAR_LIGNE = '-';
+const char     Plateau::CAR_COL   = '|';
+const char     Plateau::CAR_VIDE  = ' ';
+const unsigned Plateau::EPAISSEUR_BORDURE = 2;
 
-Plateau::Plateau(unsigned int largeur, unsigned int hauteur) {
+Plateau::Plateau(unsigned largeur, unsigned hauteur) {
    this->largeur = largeur;
    this->hauteur = hauteur;
 }
 
-void Plateau::ajouterRobots(unsigned int quantite) {
+void Plateau::ajouterRobots(unsigned quantite) {
    // S'assure qu'on ne dépasse pas la quantité max de robots
    assert((quantite + robots.size()) <= NB_ROBOT_MAX);
 
@@ -53,24 +54,24 @@ void Plateau::ajouterRobots(unsigned int quantite) {
 
 
 void Plateau::afficher() {
-   // Le + 2 est pour la largeur de la bordure
-   // TODO const pour ça?
    system("cls");
-   afficheTrait(largeur + 2);
-   cout << endl;
-
+   for (unsigned i = 0; i < EPAISSEUR_BORDURE; ++i) {
+      afficheChar(largeur + 2 * EPAISSEUR_BORDURE);
+      cout << endl;
+   }
    for (unsigned ligne = 0; ligne < hauteur; ++ligne) {
 
-      cout << CAR_COL;
+      afficheChar(EPAISSEUR_BORDURE, CAR_COL);
 
       // Cherche les robots dans cette ligne
       vector<size_t> robotsSurLigne = trouveRobotsSurLigne(ligne);
 
       // S'il n'y en a pas, écrit directement une ligne vide
       if (robotsSurLigne.empty()) {
-         afficheTrait(largeur, CAR_VIDE);
+         afficheChar(largeur, CAR_VIDE);
          //finit la ligne
-         cout << CAR_COL << endl;
+         afficheChar(EPAISSEUR_BORDURE, CAR_COL);
+         cout << endl;
          continue;
       }
       // Autrement, parcours toute la ligne
@@ -79,7 +80,7 @@ void Plateau::afficher() {
          bool foundRobot = false;
          for (size_t index : robotsSurLigne ) {
             if (robots[index].getX() == col) {
-               cout << robots[index].getId();
+               afficheChar(robots[index]);
                // Quitte immédiatement la boucle pour éviter le cas où 2 robots
                // serait au même endroit
                foundRobot = true;
@@ -88,17 +89,25 @@ void Plateau::afficher() {
          }
          // Si on n'a pas trouvé de robot, met un caractère vide à la place
          if (!foundRobot) {
-            cout << CAR_VIDE;
+            afficheChar(1, CAR_VIDE);
          }
       }
       // Finit la ligne
-      cout << CAR_COL << endl;
+      afficheChar(EPAISSEUR_BORDURE, CAR_COL);
+      cout << endl;
    }
 
-   afficheTrait(largeur + 2);
+   for (unsigned i = 0; i < EPAISSEUR_BORDURE; ++i) {
+      afficheChar(largeur + 2 * EPAISSEUR_BORDURE);
+      cout << endl;
+   }
 }
 
-bool Plateau::chercheRobot(unsigned int x, unsigned int y) {
+void Plateau::testerCollisions() {
+
+}
+
+bool Plateau::chercheRobot(unsigned x, unsigned y) {
    // Parcours la liste de robot pour en chercher un qui aurait les mêmes coordonnées
    for (Robot & robot : robots) {
       if(robot.getX() == x && robot.getY() == y) {
@@ -108,18 +117,22 @@ bool Plateau::chercheRobot(unsigned int x, unsigned int y) {
    return false;
 }
 
-void Plateau::afficheTrait(unsigned int taille, char caractere) {
+void Plateau::afficheChar(unsigned taille, char caractere) {
    for (unsigned i = 0; i < taille; ++i) {
       cout << caractere;
    }
 }
 
-vector<size_t> Plateau::trouveRobotsSurLigne(unsigned int ligne) {
+void Plateau::afficheChar(const Robot &robot) {
+   afficheChar(1, char(robot.getId() + '0'));
+}
+
+vector<size_t> Plateau::trouveRobotsSurLigne(unsigned ligne) {
    vector<size_t> result;
    // Cherche tous les robots sur la ligne
    vector<Robot>::iterator iterateur = robots.begin();
    while ((iterateur = find_if(iterateur, robots.end(),
-                                Robot_est_sur_ligne(ligne))) != robots.end() ) {
+                               Robot_est_sur_ligne(ligne))) != robots.end() ) {
       // Stock l'indexe du robot (son indexe dans robots)
       result.push_back(distance(robots.begin(), iterateur));
       ++iterateur;

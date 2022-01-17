@@ -15,7 +15,7 @@ Compilateur : Mingw-w64 g++ 11.2.0
 unsigned Robot::next  = 0;
 unsigned Robot::total = 0;
 
-Robot::Robot(unsigned int x, unsigned int y) : id(next) {
+Robot::Robot(unsigned x, unsigned y) : id(next) {
    ++next;
    ++total;
    this->x = x;

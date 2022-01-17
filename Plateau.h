@@ -47,6 +47,8 @@ private:
    static const char CAR_COL;
    // Le caractère utilisé quand il n'y a pas de robots
    static const char CAR_VIDE;
+   // L'épaisseur des bordures du tableau
+   static const unsigned EPAISSEUR_BORDURE;
 
    unsigned largeur, hauteur;
    std::vector<Robot> robots;
@@ -61,11 +63,18 @@ private:
    bool chercheRobot(unsigned x, unsigned y);
 
    /**
-    * cout un trait composé de taille fois le char CAR_LIGNE, et reviens à la ligne
+    * cout (taille) fois le caractere, et reviens à la ligne
     * @param taille    Le nombre de caractère
     * @param caractere Le caractère à répéter pour la ligne
     */
-   static void afficheTrait(unsigned taille, char caractere = CAR_LIGNE);
+   static void afficheChar(unsigned taille, char caractere = CAR_LIGNE);
+
+   /**
+    * Surcharge d'afficheChar pour afficher un robot
+    * Affiche le numéro d'ID du robot
+    * @param robot Le robot à afficher
+    */
+   static void afficheChar(const Robot& robot);
 
    /**
     * Cherche tous les robots sur une ligne, retourne un tableau de leurs indexes
