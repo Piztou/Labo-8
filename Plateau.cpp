@@ -20,10 +20,11 @@ using namespace std;
 
 const unsigned Plateau::NB_ROBOT_MAX = 10;
 
-const char     Plateau::CAR_LIGNE = '-';
-const char     Plateau::CAR_COL   = '|';
-const char     Plateau::CAR_VIDE  = ' ';
+const char     Plateau::CAR_LIGNE         = '-';
+const char     Plateau::CAR_COL           = '|';
+const char     Plateau::CAR_VIDE          = ' ';
 const unsigned Plateau::EPAISSEUR_BORDURE = 2;
+const unsigned Plateau::NB_ROBOT_FIN      = 1;
 
 Plateau::Plateau(unsigned largeur, unsigned hauteur) {
    this->largeur = largeur;
@@ -152,4 +153,11 @@ void Plateau::bougerRobots(){
 
       robot.deplacement(direction, 1);
    }
+}
+void appliquerCollisions(vector<Robot>::iterator end) {
+
+}
+
+bool Plateau::partieFinie() {
+   return robots.size() <= NB_ROBOT_FIN;
 }

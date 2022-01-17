@@ -42,13 +42,15 @@ public:
 
 private:
    // Le caractère utilisé pour le bord haut et bas du tableau
-   static const char CAR_LIGNE;
+   static const char     CAR_LIGNE;
    // Le caractère utilisé pour le bord gauche et droit du tableau
-   static const char CAR_COL;
+   static const char     CAR_COL;
    // Le caractère utilisé quand il n'y a pas de robots
-   static const char CAR_VIDE;
+   static const char     CAR_VIDE;
    // L'épaisseur des bordures du tableau
    static const unsigned EPAISSEUR_BORDURE;
+   // Le nombre de robot auquel la partie s'arrête (ou inférieur)
+   static const unsigned NB_ROBOT_FIN;
 
    unsigned largeur, hauteur;
    std::vector<Robot> robots;
