@@ -24,7 +24,7 @@ public:
    Robot(unsigned x, unsigned y);
 
    ~Robot();
-   enum class Direction {UP, DOWN, RIGHT, LEFT};
+   enum class Direction {UP = 0, DOWN, RIGHT, LEFT};
    /**
     * Déplace le robot dans une Direction d'une certaine Distance\n
     * Le robot n'a aucune intelligence, ne gère pas le cas de dépassement du terrain

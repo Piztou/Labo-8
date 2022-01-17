@@ -11,6 +11,9 @@ Compilateur : Mingw-w64 g++ 11.2.0
 */
 
 #include <iostream>
+#include <chrono>
+#include <thread>
+
 #include "Plateau.h"
 
 using namespace std;
@@ -20,11 +23,15 @@ int main() {
 
    // TODO : utiliser un using pour le type des coordonnées ?
 
-   Plateau plateau (10,10);
+   Plateau plateau (20,10);
 
    plateau.ajouterRobots(10);
 
-   plateau.afficher();
+   for (int i = 0; i < 100; ++i) {
+      plateau.afficher();
+      plateau.bougerRobots();
+      this_thread::sleep_for(chrono::milliseconds(200));
+   }
 
    return 0;
 }

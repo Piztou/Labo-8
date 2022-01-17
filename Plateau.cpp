@@ -55,6 +55,7 @@ void Plateau::ajouterRobots(unsigned int quantite) {
 void Plateau::afficher() {
    // Le + 2 est pour la largeur de la bordure
    // TODO const pour ça?
+   system("cls");
    afficheTrait(largeur + 2);
    cout << endl;
 
@@ -124,4 +125,18 @@ vector<size_t> Plateau::trouveRobotsSurLigne(unsigned int ligne) {
       ++iterateur;
    }
    return result;
+}
+
+void Plateau::bougerRobots(){
+   for (Robot& robot : robots) {
+      Robot::Direction direction;
+      do {
+         direction = (Robot::Direction)aleatoire<int>(0, 3);
+      } while (direction == Robot::Direction::UP && robot.getY() - 1 <= 0 ||
+               direction == Robot::Direction::DOWN && robot.getY() + 1 >= hauteur ||
+               direction == Robot::Direction::LEFT && robot.getX() - 1 <= 0 ||
+               direction == Robot::Direction::RIGHT && robot.getX() + 1 >= largeur);
+
+      robot.deplacement(direction, 1);
+   }
 }
