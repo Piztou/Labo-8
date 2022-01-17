@@ -4,8 +4,9 @@ Nom du fichier : annexes.h
 Nom du Labo : 8 - Survivor
 Auteur(s) : Gillioz Dorian & Yann Merk
 Date creation : 16-01-2022
-Description : <TODO>
-Remarque(s) : <TODO>
+Description : En-tête de la librairie annexes, qui contient les déclarations des
+              fonctions viderBuffer, saisir et aléatoire
+Remarque(s) : -
 Compilateur : Mingw-w64 g++ 11.2.0
 -----------------------------------------------------------------------------------
 */
