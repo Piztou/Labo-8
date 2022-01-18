@@ -23,7 +23,17 @@ public:
     */
    Robot(unsigned x, unsigned y);
 
-   ~Robot();
+   /**
+    * Compare la position de deux robots
+    * @param robot le robot avec lequel comparer
+    * @return true si les coordonnées des deux robots sont égales
+    */
+   Robot& operator=(Robot&& robot) {
+      return *this;
+   }
+   constexpr Robot(const Robot& robot) = default;
+   bool operator==(const Robot& robot) const;
+
    enum class Direction {UP = 0, DOWN, RIGHT, LEFT};
    /**
     * Déplace le robot dans une Direction d'une certaine Distance\n
@@ -34,11 +44,11 @@ public:
    unsigned getId() const;
    unsigned getX() const;
    unsigned getY() const;
-   static unsigned getTotal();
+   char  getChar() const;
 private:
    unsigned x,y;
    const unsigned id;
-   static unsigned total;
+   static const char CHAR_INI;
    static unsigned next;
 };
 

@@ -12,18 +12,17 @@ Compilateur : Mingw-w64 g++ 11.2.0
 
 #include "Robot.h"
 
+const char Robot::CHAR_INI  = '0';
 unsigned Robot::next  = 0;
-unsigned Robot::total = 0;
 
 Robot::Robot(unsigned x, unsigned y) : id(next) {
    ++next;
-   ++total;
    this->x = x;
    this->y = y;
 }
 
-Robot::~Robot() {
-   --total;
+bool Robot::operator==(const Robot &robot) const {
+   return robot.x == x && robot.y == y;
 }
 
 void Robot::deplacement(Direction direction, unsigned distance) {
@@ -56,6 +55,6 @@ unsigned Robot::getY() const {
    return y;
 }
 
-unsigned Robot::getTotal() {
-   return total;
+char Robot::getChar() const {
+   return char(id + CHAR_INI);
 }

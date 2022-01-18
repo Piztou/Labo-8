@@ -23,8 +23,13 @@ const unsigned Plateau::NB_ROBOT_MAX = 10;
 const char     Plateau::CAR_LIGNE         = '-';
 const char     Plateau::CAR_COL           = '|';
 const char     Plateau::CAR_VIDE          = ' ';
-const unsigned Plateau::EPAISSEUR_BORDURE = 2;
+const unsigned Plateau::EPAISSEUR_BORDURE = 1;
 const unsigned Plateau::NB_ROBOT_FIN      = 1;
+
+const std::string MESSAGE_KILL_1 = "Le robot "s;
+const std::string MESSAGE_KILL_2 = " a tue "s;
+
+string messages_kills = ""s;
 
 Plateau::Plateau(unsigned largeur, unsigned hauteur) {
    this->largeur = largeur;
@@ -81,7 +86,7 @@ void Plateau::afficher() {
          bool foundRobot = false;
          for (size_t index : robotsSurLigne ) {
             if (robots[index].getX() == col) {
-               afficheChar(robots[index]);
+               afficheChar(1, robots[index].getChar());
                // Quitte immédiatement la boucle pour éviter le cas où 2 robots
                // serait au même endroit
                foundRobot = true;
@@ -102,10 +107,8 @@ void Plateau::afficher() {
       afficheChar(largeur + 2 * EPAISSEUR_BORDURE);
       cout << endl;
    }
-}
-
-void Plateau::testerCollisions() {
-
+   // Affiche les destructions
+   cout << messages_kills;
 }
 
 bool Plateau::chercheRobot(unsigned x, unsigned y) {
@@ -124,10 +127,6 @@ void Plateau::afficheChar(unsigned taille, char caractere) {
    }
 }
 
-void Plateau::afficheChar(const Robot &robot) {
-   afficheChar(1, char(robot.getId() + '0'));
-}
-
 vector<size_t> Plateau::trouveRobotsSurLigne(unsigned ligne) {
    vector<size_t> result;
    // Cherche tous les robots sur la ligne
@@ -142,22 +141,44 @@ vector<size_t> Plateau::trouveRobotsSurLigne(unsigned ligne) {
 }
 
 void Plateau::bougerRobots(){
-   for (Robot& robot : robots) {
+   for (vector<Robot>::iterator it = robots.begin(); it != robots.end(); ++it) {
       Robot::Direction direction;
       do {
-         direction = (Robot::Direction)aleatoire<int>(0, 3);
-      } while (direction == Robot::Direction::UP && robot.getY() - 1 <= 0 ||
-               direction == Robot::Direction::DOWN && robot.getY() + 1 >= hauteur ||
-               direction == Robot::Direction::LEFT && robot.getX() - 1 <= 0 ||
-               direction == Robot::Direction::RIGHT && robot.getX() + 1 >= largeur);
+         direction = (Robot::Direction) aleatoire<int>(0, 3);
+      } while (direction == Robot::Direction::UP && it->getY() - 1 <= 0 ||
+               direction == Robot::Direction::DOWN && it->getY() + 1 >= hauteur ||
+               direction == Robot::Direction::LEFT && it->getX() - 1 <= 0 ||
+               direction == Robot::Direction::RIGHT && it->getX() + 1 >= largeur);
 
-      robot.deplacement(direction, 1);
+      it->deplacement(direction, 1);
+
+      // Tester les collisions
+      appliquerCollisions(it);
    }
 }
-void appliquerCollisions(vector<Robot>::iterator end) {
+void Plateau::appliquerCollisions(vector<Robot>::iterator& end) {
+   vector<Robot>::iterator iterateur = robots.begin();
+   // Cherche si il y a un autre robot sur cette case
+   if ((iterateur = find(iterateur, end, *end)) != end ) {
 
+      // Ajoute un message de destruction
+      ajouteMessageDestruction(*end, *iterateur);
+
+      // Enlève le robot du vecteur
+      robots.erase(iterateur, iterateur+1);
+      // Remet l'itérateur sur le bon élément
+      --end;
+   }
 }
 
 bool Plateau::partieFinie() {
    return robots.size() <= NB_ROBOT_FIN;
+}
+
+void Plateau::ajouteMessageDestruction(const Robot &tueur, const Robot &tue) {
+   messages_kills += ::MESSAGE_KILL_1;
+   messages_kills += tueur.getChar();
+   messages_kills += ::MESSAGE_KILL_2;
+   messages_kills += tue.getChar();
+   messages_kills += '\n';
 }

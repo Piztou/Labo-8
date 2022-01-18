@@ -37,7 +37,6 @@ public:
    void ajouterRobots(unsigned quantite);
    void afficher();
    void bougerRobots();
-   void testerCollisions(); // TODO directement dans bougerRobots?
    bool partieFinie();
 
 private:
@@ -51,6 +50,13 @@ private:
    static const unsigned EPAISSEUR_BORDURE;
    // Le nombre de robot auquel la partie s'arrête (ou inférieur)
    static const unsigned NB_ROBOT_FIN;
+
+   // Le message sortit quand un robot tue un autre, en 2 partie
+   static const std::string MESSAGE_KILL_1;
+   static const std::string MESSAGE_KILL_2;
+
+   // Pour stocker les messages de kills précédents
+   std::string messages_kills;
 
    unsigned largeur, hauteur;
    std::vector<Robot> robots;
@@ -71,12 +77,6 @@ private:
     */
    static void afficheChar(unsigned taille, char caractere = CAR_LIGNE);
 
-   /**
-    * Surcharge d'afficheChar pour afficher un robot
-    * Affiche le numéro d'ID du robot
-    * @param robot Le robot à afficher
-    */
-   static void afficheChar(const Robot& robot);
 
    /**
     * Cherche tous les robots sur une ligne, retourne un tableau de leurs indexes
@@ -84,6 +84,22 @@ private:
     * @return Un liste d'indexes de robots
     */
    std::vector<size_t> trouveRobotsSurLigne (unsigned ligne);
+
+   /**
+    * Vérifie si le robot actuel (pointé par end) est en collisions avec un robot
+    * du vecteur robots précédent
+    * @param end Un itérateur de robots vers le robot qu'il faut tester.
+    *            L'itérateur sera décalé automatiquement si un élément précédent
+    *            est supprimé
+    */
+   void appliquerCollisions(std::vector<Robot>::iterator& end);
+
+   /**
+    * Ajoute un message de mort à messages_kills
+    * @param tueur Le robot ayant détruit
+    * @param tue   Le robot ayant été détruit
+    */
+   void ajouteMessageDestruction(const Robot& tueur, const Robot& tue);
 };
 
 
