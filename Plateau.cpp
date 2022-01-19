@@ -26,14 +26,16 @@ const char     Plateau::CAR_VIDE          = ' ';
 const unsigned Plateau::EPAISSEUR_BORDURE = 1;
 const unsigned Plateau::NB_ROBOT_FIN      = 1;
 
-const std::string MESSAGE_KILL_1 = "Le robot "s;
-const std::string MESSAGE_KILL_2 = " a tue "s;
+const char* Plateau::MESSAGE_KILL_1 = "Le robot ";
+const char* Plateau::MESSAGE_KILL_2 = " a tue ";
+const char* Plateau::SYSTEM_CLEAR   = "cls";
 
-string messages_kills = ""s;
 
 Plateau::Plateau(unsigned largeur, unsigned hauteur) {
    this->largeur = largeur;
    this->hauteur = hauteur;
+
+   messages_kills= ""s;
 }
 
 void Plateau::ajouterRobots(unsigned quantite) {
@@ -60,17 +62,21 @@ void Plateau::ajouterRobots(unsigned quantite) {
 
 
 void Plateau::afficher() {
-   system("cls");
+   // Vide la console
+   system(SYSTEM_CLEAR);
+
+   // Dessine la première ligne
    for (unsigned i = 0; i < EPAISSEUR_BORDURE; ++i) {
       afficheChar(largeur + 2 * EPAISSEUR_BORDURE);
       cout << endl;
    }
+   // Pour chaque ligne...
    for (unsigned ligne = 0; ligne < hauteur; ++ligne) {
 
       afficheChar(EPAISSEUR_BORDURE, CAR_COL);
 
       // Cherche les robots dans cette ligne
-      vector<size_t> robotsSurLigne = trouveRobotsSurLigne(ligne);
+      vector<Robot*> robotsSurLigne = trouveRobotsSurLigne(ligne);
 
       // S'il n'y en a pas, écrit directement une ligne vide
       if (robotsSurLigne.empty()) {
@@ -84,9 +90,9 @@ void Plateau::afficher() {
       for (unsigned col = 0; col < largeur; ++col) {
          // Vérifie si un robot est à cet emplacement
          bool foundRobot = false;
-         for (size_t index : robotsSurLigne ) {
-            if (robots[index].getX() == col) {
-               afficheChar(1, robots[index].getChar());
+         for (Robot* robot : robotsSurLigne ) {
+            if (robot->getX() == col) {
+               afficheChar(1, robot->getChar());
                // Quitte immédiatement la boucle pour éviter le cas où 2 robots
                // serait au même endroit
                foundRobot = true;
@@ -103,10 +109,12 @@ void Plateau::afficher() {
       cout << endl;
    }
 
+   // Dessine la ligne finale
    for (unsigned i = 0; i < EPAISSEUR_BORDURE; ++i) {
       afficheChar(largeur + 2 * EPAISSEUR_BORDURE);
       cout << endl;
    }
+
    // Affiche les destructions
    cout << messages_kills;
 }
@@ -127,14 +135,14 @@ void Plateau::afficheChar(unsigned taille, char caractere) {
    }
 }
 
-vector<size_t> Plateau::trouveRobotsSurLigne(unsigned ligne) {
-   vector<size_t> result;
+vector<Robot*> Plateau::trouveRobotsSurLigne(unsigned ligne) {
+   vector<Robot*> result;
    // Cherche tous les robots sur la ligne
    vector<Robot>::iterator iterateur = robots.begin();
    while ((iterateur = find_if(iterateur, robots.end(),
                                Robot_est_sur_ligne(ligne))) != robots.end() ) {
       // Stock l'indexe du robot (son indexe dans robots)
-      result.push_back(distance(robots.begin(), iterateur));
+      result.push_back(&*iterateur);
       ++iterateur;
    }
    return result;
@@ -156,18 +164,26 @@ void Plateau::bougerRobots(){
       appliquerCollisions(it);
    }
 }
-void Plateau::appliquerCollisions(vector<Robot>::iterator& end) {
+void Plateau::appliquerCollisions(vector<Robot>::iterator& itRobot) {
    vector<Robot>::iterator iterateur = robots.begin();
    // Cherche si il y a un autre robot sur cette case
-   if ((iterateur = find(iterateur, end, *end)) != end ) {
-
+   while ((iterateur = find(iterateur, robots.end(), *itRobot)) != robots.end() ) {
+      // Ignore le robot lui-même
+      if(itRobot == iterateur) {
+         ++iterateur;
+         continue;
+      }
       // Ajoute un message de destruction
-      ajouteMessageDestruction(*end, *iterateur);
+      ajouteMessageDestruction(*itRobot, *iterateur);
+
+      // Remet l'itérateur sur le bon élément si besoin
+      if(iterateur < itRobot) {
+         --itRobot;
+      }
 
       // Enlève le robot du vecteur
-      robots.erase(iterateur, iterateur+1);
-      // Remet l'itérateur sur le bon élément
-      --end;
+      iterateur = robots.erase(iterateur, iterateur+1);
+      ++iterateur;
    }
 }
 
@@ -176,9 +192,9 @@ bool Plateau::partieFinie() {
 }
 
 void Plateau::ajouteMessageDestruction(const Robot &tueur, const Robot &tue) {
-   messages_kills += ::MESSAGE_KILL_1;
+   messages_kills += MESSAGE_KILL_1;
    messages_kills += tueur.getChar();
-   messages_kills += ::MESSAGE_KILL_2;
+   messages_kills += MESSAGE_KILL_2;
    messages_kills += tue.getChar();
    messages_kills += '\n';
 }

@@ -33,9 +33,12 @@ int main() {
 
    // TODO : utiliser un using pour le type des coordonnées ?
 
-   unsigned largeur = saisir<unsigned>("largeur ", "erreur de saisie", MIN_LARGEUR, MAX_LARGEUR);
-   unsigned hauteur = saisir<unsigned>("hauteur ", "erreur de saisie", MIN_HAUTEUR, MAX_HAUTEUR);
-   unsigned nbr_objets = saisir<unsigned>("nbre object ", "erreur de saisie", MIN_NBR_OBJETS, MAX_NBR_OBJETS);
+   unsigned largeur = saisir<unsigned>("largeur ", "erreur de saisie",
+                                       MIN_LARGEUR, MAX_LARGEUR);
+   unsigned hauteur = saisir<unsigned>("hauteur ", "erreur de saisie",
+                                       MIN_HAUTEUR, MAX_HAUTEUR);
+   unsigned nbr_objets = saisir<unsigned>("nbre object ", "erreur de saisie",
+                                          MIN_NBR_OBJETS, MAX_NBR_OBJETS);
 
    Plateau plateau (largeur, hauteur);
 

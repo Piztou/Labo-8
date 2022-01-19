@@ -52,8 +52,11 @@ private:
    static const unsigned NB_ROBOT_FIN;
 
    // Le message sortit quand un robot tue un autre, en 2 partie
-   static const std::string MESSAGE_KILL_1;
-   static const std::string MESSAGE_KILL_2;
+   static const char* MESSAGE_KILL_1;
+   static const char* MESSAGE_KILL_2;
+   // La command système utilisée pour vider l'écran, dépendant du système
+   // d'exploitation
+   static const char* SYSTEM_CLEAR;
 
    // Pour stocker les messages de kills précédents
    std::string messages_kills;
@@ -79,20 +82,20 @@ private:
 
 
    /**
-    * Cherche tous les robots sur une ligne, retourne un tableau de leurs indexes
+    * Cherche tous les robots sur une ligne, retourne un tableau de leurs pointeurs
     * @param ligne La ligne où chercher les robots
-    * @return Un liste d'indexes de robots
+    * @return Une Liste de pointeurs vers ces robots
     */
-   std::vector<size_t> trouveRobotsSurLigne (unsigned ligne);
+   std::vector<Robot*> trouveRobotsSurLigne (unsigned ligne);
 
    /**
-    * Vérifie si le robot actuel (pointé par end) est en collisions avec un robot
-    * du vecteur robots précédent
-    * @param end Un itérateur de robots vers le robot qu'il faut tester.
-    *            L'itérateur sera décalé automatiquement si un élément précédent
-    *            est supprimé
+    * Vérifie si le robot passé en itérateur est entré en collisions avec
+    * un autre, et détruit l'autre si c'est le cas
+    * @param itRobot le robot à tester
+    *                L'itérateur sera décalé automatiquement si un élément précédent
+    *                est supprimé
     */
-   void appliquerCollisions(std::vector<Robot>::iterator& end);
+   void appliquerCollisions(std::vector<Robot>::iterator& itRobot);
 
    /**
     * Ajoute un message de mort à messages_kills
