@@ -50,6 +50,8 @@ int main() {
       this_thread::sleep_for(chrono::milliseconds(SLEEP));
    } while (!plateau.partieFinie());
 
+   plateau.afficher();
+
    viderBuffer();
 
    return EXIT_SUCCESS;
