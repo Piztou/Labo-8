@@ -39,11 +39,16 @@ int main() {
                   // Nombre de robots minimum
                   MIN_NBR_OBJETS = 1;
 
-   unsigned largeur    = saisir<unsigned>("largeur ", "erreur de saisie",
+   const string QUESTION_LARGEUR   = "largeur "s,
+                QUESTION_HAUTEUR   = "hauteur "s,
+                QUESTION_NB_OBJETS = "nbre objets "s,
+                MESSAGE_ERREUR     = "erreur de saisie"s;
+
+   unsigned largeur    = saisir<unsigned>(QUESTION_LARGEUR, MESSAGE_ERREUR,
                                           MIN_LARGEUR, MAX_LARGEUR);
-   unsigned hauteur    = saisir<unsigned>("hauteur ", "erreur de saisie",
+   unsigned hauteur    = saisir<unsigned>(QUESTION_HAUTEUR, MESSAGE_ERREUR,
                                           MIN_HAUTEUR, MAX_HAUTEUR);
-   unsigned nbr_objets = saisir<unsigned>("nbre object ", "erreur de saisie",
+   unsigned nbr_objets = saisir<unsigned>(QUESTION_NB_OBJETS, MESSAGE_ERREUR,
                                           MIN_NBR_OBJETS, Plateau::NB_ROBOT_MAX);
 
    Plateau plateau (largeur, hauteur);
