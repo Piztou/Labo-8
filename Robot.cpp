@@ -5,6 +5,7 @@ Nom du Labo    : 8 - Survivor
 Auteurs        : Gillioz Dorian & Yann Merk
 Date creation  : 14-01-2022
 Description    : Implémentation de Robot
+Remarque(s)    : -
 Compilateur    : Mingw-w64 g++ 11.2.0
 -----------------------------------------------------------------------------------
 */
@@ -20,7 +21,7 @@ Robot::Robot(unsigned x, unsigned y) : id(next) {
    this->y = y;
 }
 
-Robot &Robot::operator=(Robot &&robot) {
+Robot& Robot::operator=(Robot&& robot) {
    x = robot.x;
    y = robot.y;
 
@@ -32,7 +33,7 @@ Robot &Robot::operator=(Robot &&robot) {
    return *this;
 }
 
-bool Robot::operator==(const Robot &robot) const {
+bool Robot::operator==(const Robot& robot) const {
    return robot.x == x && robot.y == y;
 }
 

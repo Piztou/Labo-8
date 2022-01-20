@@ -4,8 +4,11 @@ Nom du fichier : main.cpp
 Nom du Labo : 8 - Survivor
 Auteur(s) : Gillioz Dorian & Yann Merk
 Date creation : 14-01-2022
-Description : <TODO>
-Remarque(s) : <TODO>
+Description : Le programme permet de simuler un combat de robots dans un plateau
+              de jeu. Le nombre de robot en jeu et les dimensions du plateau sont
+              données par l'utilisateur. La partie se termine lorsqu'il ne reste
+              qu'un robot en jeu.
+Remarque(s) : -
 Compilateur : Mingw-w64 g++ 11.2.0
 -----------------------------------------------------------------------------------
 */
@@ -51,6 +54,8 @@ int main() {
    } while (!plateau.partieFinie());
 
    plateau.afficher();
+
+   cout << "Partie terminee !" << endl;
 
    viderBuffer();
 

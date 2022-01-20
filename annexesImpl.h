@@ -24,7 +24,7 @@ T saisir(const std::string& msgSaisie,
    T valeur;
    do {
       std::cout << msgSaisie << " [" << min << ".." << max << "] :";
-      erreur = !(std::cin >> valeur) || valeur < min || valeur > max;
+      erreur = !(std::cin >> valeur) || valeur < min || valeur > max; // teste les erreurs de saisie
 
       if (erreur) {
          std::cout << msgErreur << std::endl;
@@ -41,9 +41,9 @@ T aleatoire(T min, T max) {
    static bool premiereFois = true;
 
    // Si la fonction est appelée pour la première fois
-   if (premiereFois){
+   if (premiereFois) {
       // génère un seed pour les randoms
-      srand((unsigned int)time(NULL));
+      srand((unsigned)time(NULL));
       premiereFois = false;
    }
    // retourne un nombre entier entre min et max

@@ -8,6 +8,7 @@ Description    : Déclare l'objet robot, un bête objet muni de coordonnées et 
                  pouvant se déplacer dans les directions décrites dans Direction
                  N'a aucune notion de son environnement, les tests nécessaires
                  doivent être implémentés par l'appelant
+Remarque(s) : -
 Compilateur    : Mingw-w64 g++ 11.2.0
 -----------------------------------------------------------------------------------
 */

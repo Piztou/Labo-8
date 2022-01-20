@@ -4,7 +4,7 @@ Nom du fichier : Plateau.cpp
 Nom du Labo : 8 - Survivor
 Auteur(s) : Gillioz Dorian & Yann Merk
 Date creation : 14-01-2022
-Description : <TODO>
+Description : Partie implémentation de la classe Plateau.
 Remarque(s) : <TODO>
 Compilateur : Mingw-w64 g++ 11.2.0
 -----------------------------------------------------------------------------------
@@ -121,7 +121,7 @@ void Plateau::afficher() {
 
 bool Plateau::chercheRobot(unsigned x, unsigned y) {
    // Parcours la liste de robot pour en chercher un qui aurait les mêmes coordonnées
-   for (Robot & robot : robots) {
+   for (Robot& robot : robots) {
       if(robot.getX() == x && robot.getY() == y) {
          return true;
       }
@@ -148,7 +148,7 @@ vector<Robot*> Plateau::trouveRobotsSurLigne(unsigned ligne) {
    return result;
 }
 
-void Plateau::bougerRobots(){
+void Plateau::bougerRobots() {
    for (vector<Robot>::iterator it = robots.begin(); it != robots.end(); ++it) {
       Robot::Direction direction;
       do {
@@ -191,7 +191,7 @@ bool Plateau::partieFinie() {
    return robots.size() <= NB_ROBOT_FIN;
 }
 
-void Plateau::ajouteMessageDestruction(const Robot &tueur, const Robot &tue) {
+void Plateau::ajouteMessageDestruction(const Robot& tueur, const Robot& tue) {
    messages_kills += MESSAGE_KILL_1;
    messages_kills += tueur.getChar();
    messages_kills += MESSAGE_KILL_2;

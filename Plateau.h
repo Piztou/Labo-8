@@ -4,8 +4,11 @@ Nom du fichier : Plateau.h
 Nom du Labo : 8 - Survivor
 Auteur(s) : Gillioz Dorian & Yann Merk
 Date creation : 14-01-2022
-Description : <TODO>
-Remarque(s) : <TODO>
+Description : Partie déclaration de la classe Plateau. Cette classe contient les
+              dimensions du plateau et la liste des robots qui s'affrontent. La
+              classe gère le déplacement et le collisions des robots et détermine
+              la fin d'une partie.
+Remarque(s) : -
 Compilateur : Mingw-w64 g++ 11.2.0
 -----------------------------------------------------------------------------------
 */
@@ -35,8 +38,21 @@ public:
     * @param quantite La quantité de robot à ajouter
     */
    void ajouterRobots(unsigned quantite);
+
+   /**
+    * Affiche le plateau de jeu dans la console
+    */
    void afficher();
+
+   /**
+    * Déplace tous les robots dans le plateau aléatoirement
+    */
    void bougerRobots();
+
+   /**
+    * Détermine si la partie est finie : un robot restant
+    * @return true si la partie est finie, false sinon
+    */
    bool partieFinie();
 
 private:
