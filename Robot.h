@@ -1,6 +1,6 @@
 /*
 -----------------------------------------------------------------------------------
-Nom du fichier : Robot.cpp
+Nom du fichier : Robot.h
 Nom du Labo    : 8 - Survivor
 Auteurs        : Gillioz Dorian & Yann Merk
 Date creation  : 14-01-2022
@@ -8,7 +8,7 @@ Description    : Déclare l'objet robot, un bête objet muni de coordonnées et 
                  pouvant se déplacer dans les directions décrites dans Direction
                  N'a aucune notion de son environnement, les tests nécessaires
                  doivent être implémentés par l'appelant
-Remarque(s) : -
+Remarque(s)    : -
 Compilateur    : Mingw-w64 g++ 11.2.0
 -----------------------------------------------------------------------------------
 */

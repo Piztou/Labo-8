@@ -1,15 +1,15 @@
 /*
 -----------------------------------------------------------------------------------
 Nom du fichier : Plateau.h
-Nom du Labo : 8 - Survivor
-Auteur(s) : Gillioz Dorian & Yann Merk
-Date creation : 14-01-2022
-Description : Partie déclaration de la classe Plateau. Cette classe contient les
-              dimensions du plateau et la liste des robots qui s'affrontent. La
-              classe gère le déplacement et le collisions des robots et détermine
-              la fin d'une partie.
-Remarque(s) : -
-Compilateur : Mingw-w64 g++ 11.2.0
+Nom du Labo    : 8 - Survivor
+Auteurs        : Gillioz Dorian & Yann Merk
+Date creation  : 14-01-2022
+Description    : Partie déclaration de la classe Plateau. Cette classe contient les
+                 dimensions du plateau et la liste des robots qui s'affrontent. La
+                 classe gère le déplacement et les collisions des robots et détermine
+                 la fin d'une partie.
+Remarque(s)    : -
+Compilateur    : Mingw-w64 g++ 11.2.0
 -----------------------------------------------------------------------------------
 */
 
@@ -64,10 +64,10 @@ private:
    static const char     CAR_VIDE;
    // L'épaisseur des bordures du tableau
    static const unsigned EPAISSEUR_BORDURE;
-   // Le nombre de robot auquel la partie s'arrête (ou inférieur)
+   // Le nombre de robots auquel la partie s'arrête (ou inférieur)
    static const unsigned NB_ROBOT_FIN;
 
-   // Le message sortit quand un robot tue un autre, en 2 partie
+   // Le message sortit quand un robot tue un autre, en 2 parties
    static const char* MESSAGE_KILL_1;
    static const char* MESSAGE_KILL_2;
    // La command système utilisée pour vider l'écran, dépendant du système
@@ -77,7 +77,9 @@ private:
    // Pour stocker les messages de kills précédents
    std::string messages_kills;
 
+   // Largeur et hauteur du plateau
    unsigned largeur, hauteur;
+   // Stock de tous les robots sur le terrain
    std::vector<Robot> robots;
 
    /**

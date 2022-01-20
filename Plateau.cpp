@@ -1,12 +1,12 @@
 /*
 -----------------------------------------------------------------------------------
 Nom du fichier : Plateau.cpp
-Nom du Labo : 8 - Survivor
-Auteur(s) : Gillioz Dorian & Yann Merk
-Date creation : 14-01-2022
-Description : Partie implémentation de la classe Plateau.
-Remarque(s) : <TODO>
-Compilateur : Mingw-w64 g++ 11.2.0
+Nom du Labo    : 8 - Survivor
+Auteurs        : Gillioz Dorian & Yann Merk
+Date creation  : 14-01-2022
+Description    : Partie implémentation de la classe Plateau.
+Remarque(s)    : -
+Compilateur    : Mingw-w64 g++ 11.2.0
 -----------------------------------------------------------------------------------
 */
 
@@ -18,7 +18,7 @@ Compilateur : Mingw-w64 g++ 11.2.0
 
 using namespace std;
 
-const unsigned Plateau::NB_ROBOT_MAX = 10;
+const unsigned Plateau::NB_ROBOT_MAX = 9;
 
 const char     Plateau::CAR_LIGNE         = '-';
 const char     Plateau::CAR_COL           = '|';
@@ -28,6 +28,7 @@ const unsigned Plateau::NB_ROBOT_FIN      = 1;
 
 const char* Plateau::MESSAGE_KILL_1 = "Le robot ";
 const char* Plateau::MESSAGE_KILL_2 = " a tue ";
+
 const char* Plateau::SYSTEM_CLEAR   = "cls";
 
 
@@ -46,7 +47,6 @@ void Plateau::ajouterRobots(unsigned quantite) {
       // Génère des coordonnées
       unsigned x, y;
       do {
-         //TODO const ?
          x = aleatoire(0u, largeur);
          y = aleatoire(0u, hauteur);
          // Vérifie que l'endroit est vide
@@ -88,7 +88,7 @@ void Plateau::afficher() {
       }
       // Autrement, parcours toute la ligne
       for (unsigned col = 0; col < largeur; ++col) {
-         // Vérifie si un robot est à cet emplacement
+         // Vérifie si un des robots sur cette ligne est à cet emplacement
          bool foundRobot = false;
          for (Robot* robot : robotsSurLigne ) {
             if (robot->getX() == col) {
@@ -141,7 +141,7 @@ vector<Robot*> Plateau::trouveRobotsSurLigne(unsigned ligne) {
    vector<Robot>::iterator iterateur = robots.begin();
    while ((iterateur = find_if(iterateur, robots.end(),
                                Robot_est_sur_ligne(ligne))) != robots.end() ) {
-      // Stock l'indexe du robot (son indexe dans robots)
+      // Stock un pointeur vers ce robot
       result.push_back(&*iterateur);
       ++iterateur;
    }
@@ -153,9 +153,9 @@ void Plateau::bougerRobots() {
       Robot::Direction direction;
       do {
          direction = (Robot::Direction) aleatoire<int>(0, 3);
-      } while (direction == Robot::Direction::UP && it->getY() <= 0 ||
-               direction == Robot::Direction::DOWN && it->getY() + 1 >= hauteur ||
-               direction == Robot::Direction::LEFT && it->getX() <= 0 ||
+      } while (direction == Robot::Direction::UP    && it->getY()     <= 0       ||
+               direction == Robot::Direction::DOWN  && it->getY() + 1 >= hauteur ||
+               direction == Robot::Direction::LEFT  && it->getX()     <= 0       ||
                direction == Robot::Direction::RIGHT && it->getX() + 1 >= largeur);
 
       it->deplacement(direction, 1);
