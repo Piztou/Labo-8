@@ -153,9 +153,9 @@ void Plateau::bougerRobots() {
       Robot::Direction direction;
       do {
          direction = (Robot::Direction) aleatoire<int>(0, 3);
-      } while (direction == Robot::Direction::UP && it->getY() - 1 <= 0 ||
+      } while (direction == Robot::Direction::UP && it->getY() <= 0 ||
                direction == Robot::Direction::DOWN && it->getY() + 1 >= hauteur ||
-               direction == Robot::Direction::LEFT && it->getX() - 1 <= 0 ||
+               direction == Robot::Direction::LEFT && it->getX() <= 0 ||
                direction == Robot::Direction::RIGHT && it->getX() + 1 >= largeur);
 
       it->deplacement(direction, 1);
