@@ -27,7 +27,7 @@ int main() {
         << "nombre de robots et les dimensions du plateau parametrables." << endl;
 
                   // Temps d'attente entre chaque déplacement
-   const unsigned SLEEP          = 1000,
+   const unsigned SLEEP          = 200,
                   // Largeur du plateau minimale
                   MIN_LARGEUR    = 10,
                   // Largeur du plateau minimale
