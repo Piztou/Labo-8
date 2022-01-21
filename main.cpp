@@ -63,7 +63,7 @@ int main() {
 
    plateau.afficher();
 
-   cout << "Partie terminee !" << endl;
+   cout << "Partie terminee ! Appuyez sur ENTER pour quitter..." << endl;
 
    viderBuffer();
 
